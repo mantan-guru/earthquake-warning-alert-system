@@ -7,6 +7,9 @@ import time
 import requests
 from bs4 import BeautifulSoup
 from itertools import chain
+
+description = 'to get the last Earthquake in indonesia from BMKG.go.id'
+
 def ekstraksi_data():
     """
     tanggal : 6 Januari 2023,
