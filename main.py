@@ -5,7 +5,7 @@ MODULARISASI DENGAN PACKAGE
 
 """
 # from gempaterkini import ekstraksi_data, show_data
-import gempaterkini
+from src import  gempaterkini
 
 
 if __name__ == '__main__':

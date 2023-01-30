@@ -3,8 +3,10 @@ MODUL GEMPA TERKINI
 """
 
 #import modul
+import time
 import requests
 from bs4 import BeautifulSoup
+from itertools import chain
 def ekstraksi_data():
     """
     tanggal : 6 Januari 2023,
@@ -64,7 +66,13 @@ def ekstraksi_data():
         hasil['lokasi'] = lokasi
         hasil['dirasakan'] = dirasakan
 
-        return hasil
+        hasil_comprehension = [result.text.split('\n') for result in results]
+        convert_dimension = list(chain.from_iterable(hasil_comprehension))
+
+
+        hasil_scraper = {'hasil' : hasil, 'hasil_comprehension' : convert_dimension }
+
+        return hasil_scraper
     else:
         return None
 
@@ -76,14 +84,21 @@ def show_data(result):
         print('data tidak ditemukan')
         return
     #
-    # print(result)
-    print('Gempa terakhir berdasarkan BMKG')
-    print(f"tanggal =  {result['tanggal']}")
-    print(f"waktu  = {result['waktu']}")
-    print(f"Magnitudo = {result['magnitudo']}")
-    print(f"Koordinat LS = {result['koordinat']['ls']} , BT =  {result['koordinat']['bt']}")
-    print(f"lokasi  = {result['lokasi']}")
-    # print(f"pusat {result['pusat']}")
-    print(f"dirasakan = {result['dirasakan']}")
+
+
+    print('Gempa terakhir berdasarkan BMKG tanpa List comprehension')
+    print(f"tanggal =  {result['hasil']['tanggal']}")
+    print(f"waktu  = {result['hasil']['waktu']}")
+    print(f"Magnitudo = {result['hasil']['magnitudo']}")
+    print(f"Koordinat LS = {result['hasil']['koordinat']['ls']} , BT =  {result['hasil']['koordinat']['bt']}")
+    print(f"lokasi  = {result['hasil']['lokasi']}")
+    print(f"dirasakan = {result['hasil']['dirasakan']}")
+    print(time.time())
+    print('\nGempa terakhir berdasarkan BMKG tanpa List comprehension')
+    dict_gempa = {'tanggal' : 0, 'Magnitudo': 1, 'kedalaman': 2, 'Koordinate': 3, 'Lokasi' : 4, 'dirasakan' : 5}
+    results = result['hasil_comprehension']
+    i = 0
+    for key, value in  dict_gempa.items():
+       print(f"{key} =  {results[value]}")
 
 
