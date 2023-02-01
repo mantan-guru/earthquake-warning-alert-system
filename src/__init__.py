@@ -1,5 +1,13 @@
+from gempaterkini import GempaTerkini
 import gempaterkini
 if __name__ == '__main__':
-    print('Deskripsi : ', gempaterkini.description)
-    result = gempaterkini.ekstraksi_data()
-    gempaterkini.show_data(result)
+    gempa = GempaTerkini('https://bmkg.go.id/')
+    print('Deskripsi : ', gempa.description)
+    gempa.run()
+
+
+
+    gempa_dunia= GempaTerkini('https://climate.com')
+    print('Deskripsi : ', gempa_dunia.description)
+    gempa.run()
+
